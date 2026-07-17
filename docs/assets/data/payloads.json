@@ -1,0 +1,466 @@
+[
+  {
+    "id": "dde-csv",
+    "name": "DDE CSV Payload",
+    "category": "DDE Attack",
+    "description": "A crafted CSV file that abuses Dynamic Data Exchange formulas to launch commands when opened in Excel.",
+    "fullDescription": "This sample places a DDE formula inside a CSV document so Microsoft Excel resolves the field as an external command invocation instead of passive data. When the victim clicks through the security prompt, Excel can spawn a script interpreter or PowerShell child process on the workstation.",
+    "targetApplications": [
+      "Excel",
+      "Windows"
+    ],
+    "attackVector": "Phishing attachment delivered as a spreadsheet-like CSV file that prompts DDE execution in Excel.",
+    "difficultyLevel": 2,
+    "detectionDifficulty": 3,
+    "techniques": [
+      "T1204.002 - Malicious File",
+      "T1059.001 - PowerShell",
+      "T1566.001 - Spearphishing Attachment"
+    ],
+    "mitigation": "Disable or restrict DDE in Office where possible and block unexpected child processes from Excel. Train users to reject Office execution prompts and inspect unusual CSV attachments.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/DDE%20based%20social%20engineering%20csv%20payload",
+    "status": "Detected",
+    "tags": [
+      "csv",
+      "excel",
+      "dde",
+      "office",
+      "phishing"
+    ]
+  },
+  {
+    "id": "dde-doc",
+    "name": "DDE DOC Payload",
+    "category": "DDE Attack",
+    "description": "A weaponized Word document that uses DDE fields to trigger code execution without traditional macros.",
+    "fullDescription": "The document embeds a DDEAUTO field that can instruct Microsoft Word to call command interpreters when the file is opened or fields are updated. Because the technique avoids VBA macros, it can slip past controls that only focus on macro-enabled documents.",
+    "targetApplications": [
+      "Word",
+      "Windows"
+    ],
+    "attackVector": "Malicious Word attachment relying on DDE field updates and user confirmation dialogs.",
+    "difficultyLevel": 3,
+    "detectionDifficulty": 4,
+    "techniques": [
+      "T1204.002 - Malicious File",
+      "T1059.003 - Windows Command Shell",
+      "T1566.001 - Spearphishing Attachment"
+    ],
+    "mitigation": "Disable automatic field updates and enforce Office Protected View for internet-origin documents. Detect Word spawning script engines, shells, or LOLBins.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/DDE%20based%20social%20engineering%20docx%20payload",
+    "status": "Detected",
+    "tags": [
+      "word",
+      "dde",
+      "document",
+      "office",
+      "phishing"
+    ]
+  },
+  {
+    "id": "dde-msg",
+    "name": "DDE Outlook Message Payload",
+    "category": "DDE Attack",
+    "description": "An Outlook MSG lure designed to socially engineer the victim into opening a DDE-based Office workflow.",
+    "fullDescription": "This payload packages the lure inside an Outlook message file so the attacker controls the email body, subject, and attachment context offline. The message is meant to lower suspicion and steer the victim toward a DDE-enabled document or command prompt flow that continues execution outside Outlook.",
+    "targetApplications": [
+      "Outlook",
+      "Windows"
+    ],
+    "attackVector": "Saved Outlook message attachment that stages a believable spear-phishing scenario for DDE execution.",
+    "difficultyLevel": 2,
+    "detectionDifficulty": 3,
+    "techniques": [
+      "T1566.001 - Spearphishing Attachment",
+      "T1204.001 - Malicious Link",
+      "T1204.002 - Malicious File"
+    ],
+    "mitigation": "Treat MSG files as active content in mail controls and sandbox them before delivery. Flag messages that instruct users to bypass Office security prompts.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/DDE%20based%20social%20engineering%20msg%20%28OUTLOOK%29%20payload",
+    "status": "Active",
+    "tags": [
+      "outlook",
+      "msg",
+      "dde",
+      "email",
+      "lure"
+    ]
+  },
+  {
+    "id": "dde-slk",
+    "name": "DDE SLK Payload",
+    "category": "DDE Attack",
+    "description": "A Symbolic Link spreadsheet file that embeds DDE content to execute commands through Excel.",
+    "fullDescription": "SYLK files are plain-text spreadsheet artifacts that Excel still supports and can interpret as formulas or external references. Attackers use the uncommon format to hide DDE behavior in a file type many defenders and end users rarely inspect closely.",
+    "targetApplications": [
+      "Excel",
+      "Windows"
+    ],
+    "attackVector": "Spear-phishing attachment using an uncommon spreadsheet format to deliver DDE formulas.",
+    "difficultyLevel": 3,
+    "detectionDifficulty": 4,
+    "techniques": [
+      "T1204.002 - Malicious File",
+      "T1059.003 - Windows Command Shell",
+      "T1566.001 - Spearphishing Attachment"
+    ],
+    "mitigation": "Block or warn on legacy Office file formats such as SYLK from untrusted sources. Monitor Excel launching shells or scripting engines immediately after file open.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/DDE%20based%20social%20engineering%20slk%20payload",
+    "status": "Detected",
+    "tags": [
+      "slk",
+      "sylk",
+      "excel",
+      "dde",
+      "legacy-format"
+    ]
+  },
+  {
+    "id": "dde-xls",
+    "name": "DDE XLS Payload",
+    "category": "DDE Attack",
+    "description": "A legacy Excel workbook that relies on DDE formulas to execute code after the victim opens the sheet.",
+    "fullDescription": "The workbook packages DDE formula abuse in a classic XLS container that fits common business workflows and reduces suspicion. Once the victim accepts the warning dialogs, Excel can chain into command execution and post-exploitation tooling.",
+    "targetApplications": [
+      "Excel",
+      "Windows"
+    ],
+    "attackVector": "Legacy XLS attachment delivered through phishing and opened in Microsoft Excel.",
+    "difficultyLevel": 2,
+    "detectionDifficulty": 3,
+    "techniques": [
+      "T1204.002 - Malicious File",
+      "T1059.001 - PowerShell",
+      "T1566.001 - Spearphishing Attachment"
+    ],
+    "mitigation": "Block internet-delivered legacy Office documents unless explicitly allowed. Use application control to stop Excel from launching PowerShell, cmd.exe, or mshta.exe.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/DDE%20based%20social%20engineering%20xls%20payload",
+    "status": "Detected",
+    "tags": [
+      "xls",
+      "excel",
+      "dde",
+      "legacy-office",
+      "execution"
+    ]
+  },
+  {
+    "id": "embedded-object-scenario1",
+    "name": "Embedded Object Scenario 1",
+    "category": "Document Execution",
+    "description": "A DOCX lure paired with a BAT file to demonstrate embedded-object assisted execution from Office content.",
+    "fullDescription": "This scenario uses a convincing Word document as the decoy while a companion batch file provides the actual execution path after the victim interacts with the embedded content. It models attacks where Office documents are used to disguise secondary executables or scripts as supporting material.",
+    "targetApplications": [
+      "Word",
+      "Windows"
+    ],
+    "attackVector": "Office document plus embedded or adjacent script object that persuades the victim to launch a BAT payload.",
+    "difficultyLevel": 3,
+    "detectionDifficulty": 2,
+    "techniques": [
+      "T1204.002 - Malicious File",
+      "T1059.003 - Windows Command Shell",
+      "T1566.001 - Spearphishing Attachment"
+    ],
+    "mitigation": "Prevent Office documents from packaging or launching scriptable companion files and scan archives for mixed document-executable bundles. Warn users when documents reference or extract batch files.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/Embedding%20Object%20in%20office%20document/Scenario1",
+    "status": "Mitigated",
+    "tags": [
+      "embedded-object",
+      "docx",
+      "bat",
+      "word",
+      "office"
+    ]
+  },
+  {
+    "id": "embedded-object-scenario2",
+    "name": "Embedded Object Scenario 2",
+    "category": "Document Execution",
+    "description": "A KPI-themed DOCX lure that chains into a disguised shortcut to trigger local execution.",
+    "fullDescription": "The scenario mixes a business-themed Word document with a shortcut file named to resemble a benign calculator or helper component. It demonstrates how attackers combine iconography, file naming, and embedded content to mask Windows shortcut execution behind normal document review activity.",
+    "targetApplications": [
+      "Word",
+      "Windows"
+    ],
+    "attackVector": "Shortcut-backed object embedded or delivered alongside a Word document to induce the victim to launch a LNK file.",
+    "difficultyLevel": 4,
+    "detectionDifficulty": 3,
+    "techniques": [
+      "T1204.002 - Malicious File",
+      "T1036 - Masquerading",
+      "T1566.001 - Spearphishing Attachment"
+    ],
+    "mitigation": "Hide or block LNK execution from document extraction paths and inspect Office containers for embedded shortcuts. Apply attachment detonation to catch disguised LNK behavior.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/Embedding%20Object%20in%20office%20document/Scenario2",
+    "status": "Detected",
+    "tags": [
+      "embedded-object",
+      "lnk",
+      "docx",
+      "word",
+      "shortcut"
+    ]
+  },
+  {
+    "id": "powershell-mouseover-pps",
+    "name": "PowerShell Mouseover PPS Payload",
+    "category": "Document Execution",
+    "description": "A slideshow that uses mouseover interaction in PowerPoint Show format to trigger PowerShell execution.",
+    "fullDescription": "Because PPS files open directly in presentation mode, the victim is immediately placed into an interactive slide deck rather than the editor view. The sample demonstrates how action settings tied to hover or click events can launch a PowerShell command with minimal user friction during a presentation workflow.",
+    "targetApplications": [
+      "PowerPoint",
+      "Windows"
+    ],
+    "attackVector": "PowerPoint Show attachment that relies on interactive slide actions such as mouseover events.",
+    "difficultyLevel": 4,
+    "detectionDifficulty": 4,
+    "techniques": [
+      "T1204.002 - Malicious File",
+      "T1059.001 - PowerShell",
+      "T1566.001 - Spearphishing Attachment"
+    ],
+    "mitigation": "Disable or heavily restrict PowerPoint action settings from untrusted files and monitor PowerPoint spawning PowerShell. Prefer opening external presentations in Protected View or isolated viewers.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/Execute%20powershell%20on%20mouseover%20-%20Powerpoint%20%28pps%29",
+    "status": "Detected",
+    "tags": [
+      "powerpoint",
+      "pps",
+      "mouseover",
+      "powershell",
+      "presentation"
+    ]
+  },
+  {
+    "id": "fake-attachment-scam",
+    "name": "Fake Attachment Scam",
+    "category": "Social Deception",
+    "description": "An Outlook lure that pretends to contain sensitive content while steering the victim toward a deceptive workflow.",
+    "fullDescription": "This payload focuses on the social engineering stage rather than exploit code by making the message itself the manipulative artifact. The scam uses urgency and confidentiality cues to convince the victim to open a fake attachment path, reply, or trust follow-on instructions from the attacker.",
+    "targetApplications": [
+      "Outlook"
+    ],
+    "attackVector": "Deceptive email message masquerading as a confidential attachment notice.",
+    "difficultyLevel": 1,
+    "detectionDifficulty": 2,
+    "techniques": [
+      "T1566.002 - Spearphishing Link",
+      "T1036 - Masquerading",
+      "T1598.003 - Spearphishing Service"
+    ],
+    "mitigation": "Use mail banner warnings and phishing-awareness training to reduce trust in urgency-driven financial lures. Quarantine messages with suspicious attachment language but no corresponding safe content.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/Fake%20attachment%20scam",
+    "status": "Active",
+    "tags": [
+      "outlook",
+      "msg",
+      "scam",
+      "deception",
+      "finance"
+    ]
+  },
+  {
+    "id": "link-manipulation",
+    "name": "Link Manipulation Attack",
+    "category": "Web Attack",
+    "description": "A web lure that visually impersonates a Microsoft patch download while silently changing the destination URL.",
+    "fullDescription": "The HTML page displays a trustworthy title and visible link text pointing to a legitimate Microsoft bulletin, but JavaScript rewrites the actual href at click time. This mismatch demonstrates classic link manipulation where the user believes they are visiting a safe vendor page yet is redirected to attacker infrastructure.",
+    "targetApplications": [
+      "Web Browser",
+      "Windows"
+    ],
+    "attackVector": "Malicious HTML page that swaps a benign-looking download link for an attacker-controlled destination.",
+    "difficultyLevel": 2,
+    "detectionDifficulty": 4,
+    "techniques": [
+      "T1204.001 - Malicious Link",
+      "T1036 - Masquerading",
+      "T1566.002 - Spearphishing Link"
+    ],
+    "mitigation": "Inspect rendered links and final click destinations with browser isolation or secure web gateways. Teach users to verify domains before downloading patches or executables.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/Link%20manipulation%20attack",
+    "status": "Active",
+    "tags": [
+      "html",
+      "link-manipulation",
+      "browser",
+      "redirect",
+      "phishing"
+    ]
+  },
+  {
+    "id": "pdf-malicious-url",
+    "name": "PDF with Malicious URL",
+    "category": "Social Deception",
+    "description": "A PDF lure that redirects victims to retrieve a secondary JAR payload disguised as a financial document.",
+    "fullDescription": "The PDF acts as the trusted first-stage artifact and contains a malicious URL intended to move the victim into a download flow outside the document reader. Pairing the PDF with a similarly themed JAR shows how attackers blend common document types with executable follow-on content to bypass suspicion.",
+    "targetApplications": [
+      "PDF Reader",
+      "Web Browser",
+      "Windows"
+    ],
+    "attackVector": "Phishing document containing a malicious hyperlink that leads to a secondary executable download.",
+    "difficultyLevel": 2,
+    "detectionDifficulty": 3,
+    "techniques": [
+      "T1204.001 - Malicious Link",
+      "T1204.002 - Malicious File",
+      "T1566.001 - Spearphishing Attachment"
+    ],
+    "mitigation": "Rewrite or detonate document hyperlinks before delivery and block Java archive downloads from unsolicited messages. Flag PDFs that contain external URLs to newly registered or non-business domains.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/PDF%20with%20malicious%20URL",
+    "status": "Detected",
+    "tags": [
+      "pdf",
+      "jar",
+      "malicious-url",
+      "finance",
+      "download"
+    ]
+  },
+  {
+    "id": "password-protected-document",
+    "name": "Password Protected Document Lure",
+    "category": "Social Deception",
+    "description": "A password-protected document workflow that uses a companion message to bypass content inspection and increase trust.",
+    "fullDescription": "The attacker sends an Outlook message together with a protected Office document so scanners cannot easily examine the file contents inline. The email supplies the password or retrieval context, conditioning the victim to manually unlock the attachment and continue the attack chain outside automated security analysis.",
+    "targetApplications": [
+      "Word",
+      "Outlook"
+    ],
+    "attackVector": "Protected attachment plus separate message-based password delivery to evade scanning and encourage manual opening.",
+    "difficultyLevel": 2,
+    "detectionDifficulty": 4,
+    "techniques": [
+      "T1566.001 - Spearphishing Attachment",
+      "T1027 - Obfuscated Files or Information",
+      "T1036 - Masquerading"
+    ],
+    "mitigation": "Block encrypted Office attachments from external senders unless approved and detonate them after secure password handling. Alert on emails that deliver passwords for attached documents.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/Password%20protected%20document",
+    "status": "Active",
+    "tags": [
+      "password-protected",
+      "docx",
+      "outlook",
+      "encrypted",
+      "evasion"
+    ]
+  },
+  {
+    "id": "word-basic-auth-phish",
+    "name": "Word Basic Auth Credential Prompt",
+    "category": "Credential Theft",
+    "description": "A Word document that forces a basic authentication prompt to harvest credentials under the guise of protected content.",
+    "fullDescription": "This lure abuses remote content or linked resource behavior in Word so the victim sees what appears to be a legitimate authentication challenge. Entered credentials are handed to attacker-controlled infrastructure, turning a routine document open into a credential capture event.",
+    "targetApplications": [
+      "Word",
+      "Web Browser",
+      "Windows"
+    ],
+    "attackVector": "Malicious Word document that references remote content and triggers a credential prompt.",
+    "difficultyLevel": 3,
+    "detectionDifficulty": 4,
+    "techniques": [
+      "T1187 - Forced Authentication",
+      "T1056 - Input Capture",
+      "T1566.001 - Spearphishing Attachment"
+    ],
+    "mitigation": "Restrict automatic outbound authentication from Office and block remote templates or linked objects from untrusted zones. Warn users that documents should not request network credentials unexpectedly.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/Steal%20credential%20using%20a%20word%20document%20which%20pop%20for%20basic%20authentication",
+    "status": "Detected",
+    "tags": [
+      "word",
+      "credential-theft",
+      "basic-auth",
+      "ntlm",
+      "remote-content"
+    ]
+  },
+  {
+    "id": "fake-excel-login",
+    "name": "Fake Excel Credential Harvester",
+    "category": "Credential Theft",
+    "description": "A fake Excel Online login page that captures usernames and passwords before showing a decoy download.",
+    "fullDescription": "The page visually imitates Microsoft Excel or Office online branding to convince the victim they must authenticate before viewing a spreadsheet. Submitted credentials are written server-side and the victim is redirected to a benign-looking file, masking the theft as a failed or completed document download.",
+    "targetApplications": [
+      "Web Browser",
+      "Excel"
+    ],
+    "attackVector": "Browser-based phishing page themed as an Excel download or preview portal.",
+    "difficultyLevel": 2,
+    "detectionDifficulty": 5,
+    "techniques": [
+      "T1056 - Input Capture",
+      "T1566.002 - Spearphishing Link",
+      "T1036 - Masquerading"
+    ],
+    "mitigation": "Use phishing-resistant MFA and domain-aware browser controls to block credential entry on untrusted pages. Detect lookalike Office login themes and server-side credential collection endpoints.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/Steal%20credentials%20using%20fake%20excel%20doc",
+    "status": "Active",
+    "tags": [
+      "excel",
+      "phishing-page",
+      "credential-theft",
+      "login",
+      "web"
+    ]
+  },
+  {
+    "id": "tabnabbing-attack",
+    "name": "Tabnabbing Attack",
+    "category": "Web Attack",
+    "description": "A browser-based lure that abuses tab focus changes to replace trusted content with a malicious update download flow.",
+    "fullDescription": "The sample demonstrates tabnabbing by opening or leaving a benign-looking page visible, then changing the tab content once the victim switches away and back. By timing the replacement to normal browsing behavior, the attacker increases the chance that the victim trusts the forged prompt and downloads malware.",
+    "targetApplications": [
+      "Web Browser",
+      "Windows"
+    ],
+    "attackVector": "Malicious web page that swaps content after a tab loses focus and returns as a fake security alert.",
+    "difficultyLevel": 3,
+    "detectionDifficulty": 4,
+    "techniques": [
+      "T1204.001 - Malicious Link",
+      "T1036 - Masquerading",
+      "T1566.002 - Spearphishing Link"
+    ],
+    "mitigation": "Use browser isolation or script restrictions for unknown sites and educate users to distrust surprise download prompts in background tabs. Monitor for pages that alter titles, favicons, or destinations after blur events.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/Tabnabbing%20attack",
+    "status": "Active",
+    "tags": [
+      "tabnabbing",
+      "browser",
+      "phishing",
+      "fake-update",
+      "social-engineering"
+    ]
+  },
+  {
+    "id": "lnk-hta-calc",
+    "name": "LNK Download and Execute HTA",
+    "category": "File Execution",
+    "description": "A Windows shortcut that downloads and launches an HTA payload to execute code on the host.",
+    "fullDescription": "The LNK file masks command execution behind a familiar document or survey icon while invoking mshta or a similar Windows component in the background. This pattern is common in intrusion chains because shortcuts are small, flexible, and can fetch second-stage content only after the victim double-clicks the file.",
+    "targetApplications": [
+      "Windows"
+    ],
+    "attackVector": "Malicious LNK attachment that retrieves and runs a remote HTA payload after user execution.",
+    "difficultyLevel": 3,
+    "detectionDifficulty": 4,
+    "techniques": [
+      "T1204.002 - Malicious File",
+      "T1218.005 - Mshta",
+      "T1105 - Ingress Tool Transfer"
+    ],
+    "mitigation": "Block shortcut attachments from email and downloads, and disable mshta.exe where business use is not required. Detect LNK files that launch scripting engines or external URLs.",
+    "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/lnk%20-%20download%20and%20execute%20calc%20HTA",
+    "status": "Detected",
+    "tags": [
+      "lnk",
+      "hta",
+      "mshta",
+      "windows",
+      "shortcut"
+    ]
+  }
+]
