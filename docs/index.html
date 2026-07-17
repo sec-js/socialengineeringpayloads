@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive GitHub Pages dashboard for exploring social engineering payload examples, attack vectors, and mitigations.">
+  <meta property="og:title" content="Social Engineering Payloads | Interactive Dashboard">
+  <meta property="og:description" content="Browse and compare payloads, difficulty, target applications, and ATT&CK techniques in a self-contained dashboard.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sec-js.github.io/socialengineeringpayloads/">
+  <title>Social Engineering Payloads | Interactive Dashboard</title>
+  <style>
+    html{background:#0d1117;color:#e6edf3}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0d1117;color:#e6edf3}#navbar{display:grid;grid-template-columns:auto 1fr auto auto;gap:.75rem;align-items:center;padding:.9rem 1rem;border-bottom:1px solid rgba(240,246,252,.12);position:sticky;top:0;background:rgba(13,17,23,.88);backdrop-filter:blur(20px);z-index:100}.search-shell{position:relative}.search-shell input{width:100%;padding:.9rem 1rem .9rem 2.6rem;border-radius:999px;border:1px solid rgba(240,246,252,.12);background:#161b22;color:#e6edf3}#app-layout{display:grid;grid-template-columns:1fr;gap:1rem;padding:1rem}#cards-grid{display:grid;gap:1rem}.skip-link{position:absolute;left:1rem;top:-3rem;background:#58a6ff;color:#fff;padding:.75rem 1rem;border-radius:999px}.skip-link:focus{top:1rem}@media (min-width:768px){#app-layout{grid-template-columns:minmax(250px,320px) minmax(0,1fr);padding:1.5rem}}</style>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <nav id="navbar" aria-label="Top navigation">
+    <a class="nav-brand" href="#" aria-label="SEP Dashboard home">
+      <span class="shield" aria-hidden="true">🛡️</span>
+      <span>SEP Dashboard</span>
+    </a>
+
+    <div class="search-shell">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <label class="visually-hidden" for="search-input">Search payload catalog</label>
+      <input id="search-input" type="search" placeholder="Search payloads, techniques, applications, or tags" autocomplete="off">
+    </div>
+
+    <div class="nav-actions">
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme">☀</button>
+      <a class="icon-btn" href="https://github.com/sec-js/socialengineeringpayloads" target="_blank" rel="noopener noreferrer" aria-label="View repository on GitHub">⌂</a>
+    </div>
+
+    <button id="mobile-menu-btn" class="icon-btn" type="button" aria-label="Toggle filters navigation" aria-expanded="false" aria-controls="sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+  </nav>
+
+  <div id="app-layout">
+    <aside id="sidebar" aria-label="Dashboard filters and navigation">
+      <section class="sidebar-section">
+        <h3>Quick Filters</h3>
+        <div class="quick-filter-list">
+          <button type="button" data-preset="all" class="active">All Payloads</button>
+          <button type="button" data-preset="hardest">Hardest to Detect</button>
+          <button type="button" data-preset="beginner">Beginner Friendly</button>
+          <button type="button" data-preset="credential">Credential Theft</button>
+          <button type="button" data-preset="web">Web Attacks</button>
+          <button type="button" data-preset="bookmarked">Bookmarked</button>
+        </div>
+      </section>
+
+      <section class="sidebar-section">
+        <h3>Category</h3>
+        <div class="checkbox-list">
+          <label><input type="checkbox" name="category-filter" value="DDE Attack"> DDE Attack</label>
+          <label><input type="checkbox" name="category-filter" value="Document Execution"> Document Execution</label>
+          <label><input type="checkbox" name="category-filter" value="Credential Theft"> Credential Theft</label>
+          <label><input type="checkbox" name="category-filter" value="Social Deception"> Social Deception</label>
+          <label><input type="checkbox" name="category-filter" value="Web Attack"> Web Attack</label>
+          <label><input type="checkbox" name="category-filter" value="File Execution"> File Execution</label>
+        </div>
+      </section>
+
+      <section class="sidebar-section">
+        <h3>Target Application</h3>
+        <div class="checkbox-list">
+          <label><input type="checkbox" name="target-filter" value="Excel"> Excel</label>
+          <label><input type="checkbox" name="target-filter" value="Word"> Word</label>
+          <label><input type="checkbox" name="target-filter" value="Outlook"> Outlook</label>
+          <label><input type="checkbox" name="target-filter" value="PowerPoint"> PowerPoint</label>
+          <label><input type="checkbox" name="target-filter" value="PDF Reader"> PDF Reader</label>
+          <label><input type="checkbox" name="target-filter" value="Web Browser"> Web Browser</label>
+          <label><input type="checkbox" name="target-filter" value="Windows"> Windows</label>
+        </div>
+      </section>
+
+      <section class="sidebar-section">
+        <h3>Difficulty Level</h3>
+        <div class="range-wrap">
+          <div class="range-meta"><span>Maximum level</span><span id="difficulty-value">1-5</span></div>
+          <label class="visually-hidden" for="difficulty-range">Difficulty range</label>
+          <input id="difficulty-range" type="range" min="1" max="5" step="1" value="5">
+        </div>
+      </section>
+
+      <section class="sidebar-section">
+        <h3>Detection Difficulty</h3>
+        <div class="range-wrap">
+          <div class="range-meta"><span>Maximum level</span><span id="detection-value">1-5</span></div>
+          <label class="visually-hidden" for="detection-range">Detection difficulty range</label>
+          <input id="detection-range" type="range" min="1" max="5" step="1" value="5">
+        </div>
+      </section>
+
+      <section class="sidebar-section">
+        <h3>Status</h3>
+        <div class="checkbox-list">
+          <label><input type="checkbox" name="status-filter" value="Active"> Active</label>
+          <label><input type="checkbox" name="status-filter" value="Detected"> Detected</label>
+          <label><input type="checkbox" name="status-filter" value="Mitigated"> Mitigated</label>
+        </div>
+      </section>
+
+      <section class="sidebar-section">
+        <h3>Export</h3>
+        <div class="export-actions">
+          <button id="export-json-btn" type="button">Export JSON</button>
+          <button id="export-csv-btn" type="button">Export CSV</button>
+        </div>
+      </section>
+
+      <section class="sidebar-section">
+        <h3>Category Tree</h3>
+        <div id="category-tree" aria-live="polite"></div>
+      </section>
+    </aside>
+
+    <main id="main-content" tabindex="-1">
+      <nav id="breadcrumb" aria-label="breadcrumb">
+        <ol><li><a href="#">Home</a></li></ol>
+      </nav>
+
+      <section id="stats-dashboard" aria-label="Payload statistics">
+        <div class="stat-card" id="stat-total">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Total Payloads</span>
+        </div>
+        <div class="stat-card" id="stat-categories">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Categories</span>
+        </div>
+        <div class="stat-card" id="stat-avg-difficulty">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Avg Difficulty</span>
+        </div>
+        <div class="stat-card" id="stat-active">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Active Payloads</span>
+        </div>
+      </section>
+
+      <div id="results-bar">
+        <span id="results-count">Loading...</span>
+        <div id="active-filters-display" aria-live="polite"></div>
+        <button id="clear-filters-btn" type="button">Clear Filters</button>
+        <button id="compare-btn" type="button" style="display:none">Compare Selected</button>
+      </div>
+
+      <div id="cards-grid" role="list" aria-label="Payload catalog"></div>
+
+      <div id="empty-state" class="empty-state" hidden>
+        <p>🔍 No payloads match your search. Try adjusting your filters.</p>
+        <button id="reset-search-btn" type="button">Reset Search</button>
+      </div>
+    </main>
+  </div>
+
+  <div id="comparison-modal" role="dialog" aria-modal="true" aria-labelledby="comparison-title" hidden>
+    <div class="modal-content">
+      <button id="close-comparison" type="button" aria-label="Close">✕</button>
+      <h2 id="comparison-title">Payload Comparison</h2>
+      <div id="comparison-table-container"></div>
+    </div>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
