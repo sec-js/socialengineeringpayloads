@@ -1,0 +1,68 @@
+{
+  "manifest_version": 2,
+  "_comment": "DISCLAIMER: This is an educational template showing malicious extension characteristics for security research. See README.md.",
+  "name": "Security Helper Pro (EDUCATIONAL DEMO)",
+  "version": "1.0",
+  "description": "DEMO: This manifest shows permissions requested by malicious extensions for security research purposes",
+  
+  "_permissions_explanation": {
+    "tabs": "Access all tab URLs and titles",
+    "webRequest": "Intercept all network requests",
+    "webRequestBlocking": "Block/modify network requests",
+    "storage": "Store captured data locally",
+    "cookies": "Read all cookies including session tokens",
+    "history": "Access full browsing history",
+    "bookmarks": "Read bookmarks",
+    "http://*/*": "Access all HTTP sites",
+    "https://*/*": "Access all HTTPS sites"
+  },
+  
+  "permissions": [
+    "tabs",
+    "webRequest", 
+    "webRequestBlocking",
+    "storage",
+    "cookies",
+    "history",
+    "<all_urls>"
+  ],
+  
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Security Helper"
+  },
+  
+  "_detection_notes": {
+    "suspicious_permissions": [
+      "tabs - unusual for legitimate extension",
+      "webRequest + <all_urls> - intercepts all traffic",
+      "cookies - can steal session tokens",
+      "<all_urls> - access to every website"
+    ],
+    "red_flags": [
+      "Requests more permissions than functionality requires",
+      "background script runs persistently",
+      "content scripts injected at document_start (earliest possible)",
+      "Generic security-sounding name to gain trust"
+    ],
+    "detection_methods": [
+      "Enterprise: Use extension whitelist policy",
+      "Monitor: New extension installations via MDM/EDR",
+      "Analyze: Permissions requested vs stated functionality",
+      "Alert: Extensions from non-Chrome-Web-Store sources"
+    ]
+  }
+}
