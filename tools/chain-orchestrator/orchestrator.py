@@ -161,7 +161,6 @@ class ChainOrchestrator:
                 if 'mitre_technique' not in stage:
                     issues.append(f"Stage {i+1} ({stage.get('name', '?')}): missing MITRE mapping (recommended)")
         
-        is_valid = not any(not i.startswith("Stage") or "missing MITRE" not in i for i in issues if "Missing required" in i)
         return len([i for i in issues if "Missing required" in i]) == 0, issues
     
     def simulate_chain(self, chain: dict, dry_run: bool = True) -> ChainState:

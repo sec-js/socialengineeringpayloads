@@ -1,4 +1,4 @@
-# Container/Kubernetes Attack: k8s-manifest-injectionmanifest-injection
+# Container/Kubernetes Attack: k8s-manifest-injection
 
 > **⚠️ DISCLAIMER**: Educational purposes ONLY. Do not use without authorization.
 

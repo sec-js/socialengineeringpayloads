@@ -1,4 +1,4 @@
-# Container/Kubernetes Attack: registry-credscontainer-registry-creds
+# Container/Kubernetes Attack: container-registry-creds
 
 > **⚠️ DISCLAIMER**: Educational purposes ONLY. Do not use without authorization.
 
