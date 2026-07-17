@@ -1,20 +1,14 @@
 ### SocialEngineeringPayloads
 
-<<<<<<< HEAD
+[![Interactive Dashboard](https://img.shields.io/badge/Interactive_Dashboard-GitHub_Pages-blue?style=for-the-badge&logo=github)](https://sec-js.github.io/socialengineeringpayloads/)
+
 A comprehensive collection of social engineering tricks, payloads, and educational documentation
 for credential theft and spear phishing attack research. Includes evolved techniques, payload
 chaining guides, MITRE ATT&CK mapping, and automation frameworks.
 
-> **NOTE**: Most payloads are PoC to execute `calc.exe` (Windows Calculator) as a benign demonstration.
-=======
-[![Interactive Dashboard](https://img.shields.io/badge/Interactive_Dashboard-GitHub_Pages-blue?style=for-the-badge&logo=github)](https://sec-js.github.io/socialengineeringpayloads/)
-
-This is a collection of social engineering tricks and payloads being used for credential theft and spear phishing attacks.
-
 **🔍 Explore the [Interactive Payload Dashboard](https://sec-js.github.io/socialengineeringpayloads/) — searchable, filterable, with MITRE ATT&CK mapping, dark/light theme, and mobile support.**
 
-NOTE: Most of these payloads are PoC to execute calc.exe
->>>>>>> origin/copilot/create-interactive-web-dashboard
+> **NOTE**: Most payloads are PoC to execute `calc.exe` (Windows Calculator) as a benign demonstration.
 
 ---
 
