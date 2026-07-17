@@ -1,0 +1,60 @@
+# Excel 4.0 (XLM) Macro Template
+# 
+# DISCLAIMER: Educational purposes ONLY. Do not use without authorization.
+# PoC payload: calc.exe (Windows Calculator)
+#
+# This file documents the structure of Excel 4.0 (XLM) macro cells
+# for detection rule development and security research.
+#
+# =============================================
+# HOW XLM MACROS WORK IN EXCEL:
+# =============================================
+# 
+# XLM macros are stored as cells in a special macro sheet, not as VBA modules.
+# The macro sheet can be named "Auto_Open" to execute automatically on file open.
+#
+# Key XLM macro functions:
+#   =EXEC("command")     - Execute a shell command
+#   =CALL(dll, func, ...) - Call DLL functions directly
+#   =HALT()              - Stop macro execution
+#   =RETURN()            - Return from macro
+#   =REGISTER(dll, func) - Register a DLL function
+#   =RUN(reference)      - Run a macro at a cell reference
+#
+# =============================================
+# PoC STRUCTURE (educational reference):
+# =============================================
+#
+# Sheet: Auto_Open (triggers on file open)
+# +---------+---------------------------+
+# |  Cell   |  XLM Formula              |
+# +---------+---------------------------+
+# |  A1     |  =EXEC("calc.exe")        |  <- PoC: launches calc.exe
+# |  A2     |  =HALT()                  |  <- stop execution
+# +---------+---------------------------+
+#
+# =============================================
+# ADVANCED XLM PATTERN (for detection reference):
+# =============================================
+#
+# Using CALL() to invoke WinAPI functions:
+# A1: =REGISTER("Kernel32","WinExec","JCJ")  <- register WinExec
+# A2: =CALL(A1,"calc.exe",1)                  <- call WinExec("calc.exe", SW_NORMAL)
+# A3: =HALT()
+#
+# =============================================
+# DETECTION:
+# =============================================
+# - Excel sheets named "Auto_Open" with non-standard cell formulas
+# - XLSB (Binary Excel) format often used to hide XLM macros from inspection
+# - Microsoft Defender has XLM-specific detection (since 2020)
+# - Tools: olevba, xlmdeobfuscator
+#
+# =============================================
+# MITIGATION:
+# =============================================
+# Group Policy: Block Excel 4.0 Macros
+# Path: User Configuration > Administrative Templates > Microsoft Excel 2016 > Excel Options > Security > Trust Center
+# Setting: "Block macros from running in Office files from the Internet"
+# Registry: HKCU\Software\Policies\Microsoft\Office\16.0\excel\security
+#           MacroRuntimeScanScope = 2 (Block all XLM)
