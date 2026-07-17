@@ -195,8 +195,8 @@
     "difficultyLevel": 4,
     "detectionDifficulty": 3,
     "techniques": [
-      "T1204.002 - Malicious File",
       "T1027.013 - Encrypted or Encoded File",
+      "T1204.002 - Malicious File",
       "T1566.001 - Spearphishing Attachment"
     ],
     "mitigation": "Hide or block LNK execution from document extraction paths and inspect Office containers for embedded shortcuts. Apply attachment detonation to catch disguised LNK behavior.",
@@ -340,9 +340,9 @@
     "difficultyLevel": 2,
     "detectionDifficulty": 4,
     "techniques": [
-      "T1566.001 - Spearphishing Attachment",
       "T1027 - Obfuscated Files or Information",
-      "T1036 - Masquerading"
+      "T1036 - Masquerading",
+      "T1566.001 - Spearphishing Attachment"
     ],
     "mitigation": "Block encrypted Office attachments from external senders unless approved and detonate them after secure password handling. Alert on emails that deliver passwords for attached documents.",
     "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/Password%20protected%20document",
@@ -370,8 +370,8 @@
     "difficultyLevel": 3,
     "detectionDifficulty": 4,
     "techniques": [
-      "T1556 - Modify Authentication Process",
       "T1187 - Forced Authentication",
+      "T1556 - Modify Authentication Process",
       "T1566.001 - Spearphishing Attachment"
     ],
     "mitigation": "Restrict automatic outbound authentication from Office and block remote templates or linked objects from untrusted zones. Warn users that documents should not request network credentials unexpectedly.",
@@ -399,9 +399,9 @@
     "difficultyLevel": 2,
     "detectionDifficulty": 5,
     "techniques": [
+      "T1036 - Masquerading",
       "T1056 - Input Capture",
-      "T1566.002 - Spearphishing Link",
-      "T1585.001 - Establish Accounts: Social Media Accounts"
+      "T1566.002 - Spearphishing Link"
     ],
     "mitigation": "Use phishing-resistant MFA and domain-aware browser controls to block credential entry on untrusted pages. Detect lookalike Office login themes and server-side credential collection endpoints.",
     "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/Steal%20credentials%20using%20fake%20excel%20doc",
@@ -457,8 +457,8 @@
     "detectionDifficulty": 4,
     "techniques": [
       "T1204.002 - Malicious File",
-      "T1218.005 - Mshta",
-      "T1027.013 - Encrypted or Encoded File"
+      "T1105 - Ingress Tool Transfer",
+      "T1218.005 - Mshta"
     ],
     "mitigation": "Block shortcut attachments from email and downloads, and disable mshta.exe where business use is not required. Detect LNK files that launch scripting engines or external URLs.",
     "repositoryPath": "https://github.com/sec-js/socialengineeringpayloads/tree/master/lnk%20-%20download%20and%20execute%20calc%20HTA",
