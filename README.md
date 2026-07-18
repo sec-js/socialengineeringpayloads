@@ -1,6 +1,10 @@
 ### SocialEngineeringPayloads
 
+[![Interactive Dashboard](https://img.shields.io/badge/Interactive_Dashboard-GitHub_Pages-blue?style=for-the-badge&logo=github)](https://sec-js.github.io/socialengineeringpayloads/)
+
 This is a collection of social engineering tricks and payloads being used for credential theft and spear phishing attacks.
+
+**🔍 Explore the [Interactive Payload Dashboard](https://sec-js.github.io/socialengineeringpayloads/) — searchable, filterable, with MITRE ATT&CK mapping, dark/light theme, and mobile support.**
 
 NOTE: Most of these payloads are PoC to execute calc.exe
 
