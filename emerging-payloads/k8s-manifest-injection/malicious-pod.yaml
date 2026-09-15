@@ -1,0 +1,101 @@
+# Kubernetes Malicious Pod Manifest - Educational Template
+# ===========================================================
+# DISCLAIMER: Educational purposes ONLY. Do not use without authorization.
+# 
+# This manifest demonstrates configuration patterns that indicate
+# potentially malicious or compromised Kubernetes deployments.
+# 
+# Use for:
+# - Kubernetes security policy development
+# - OPA/Gatekeeper policy testing
+# - Security awareness training
+# - Red team exercises in authorized lab environments
+#
+# MITRE ATT&CK: T1610 (Deploy Container), T1611 (Escape to Host)
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-security-pod
+  namespace: default
+  labels:
+    app: security-demo
+    purpose: educational
+  annotations:
+    disclaimer: "EDUCATIONAL ONLY - Shows suspicious pod configurations for policy development"
+
+spec:
+  # SUSPICIOUS INDICATOR 1: hostPID
+  # Allows container to see all processes on the host
+  # Detection: OPA policy blocking hostPID: true
+  hostPID: false  # Set true by attackers for container escape
+  
+  # SUSPICIOUS INDICATOR 2: hostNetwork
+  # Container shares host network namespace
+  # Detection: OPA policy blocking hostNetwork: true  
+  hostNetwork: false  # Set true by attackers for network sniffing
+  
+  # SUSPICIOUS INDICATOR 3: hostIPC
+  # Container shares host IPC namespace
+  hostIPC: false  # Set true by attackers for IPC attacks
+  
+  containers:
+  - name: demo-container
+    image: ubuntu:22.04
+    
+    # SUSPICIOUS INDICATOR 4: Privileged container
+    # Gives near-root access to host
+    # Detection: PSP/OPA policy denying privileged containers
+    securityContext:
+      privileged: false  # Attackers set this to true for container escape
+      runAsRoot: false
+      allowPrivilegeEscalation: false  # Attackers set this to true
+      
+      # SUSPICIOUS INDICATOR 5: Capabilities
+      # Adding dangerous Linux capabilities
+      capabilities:
+        drop:
+          - ALL  # Good practice: drop all capabilities
+        add: []  # Attackers add: SYS_ADMIN, NET_ADMIN, SYS_PTRACE
+    
+    # SUSPICIOUS INDICATOR 6: Host path mounts
+    # Mounting sensitive host directories
+    volumeMounts:
+    - name: demo-vol
+      mountPath: /mnt/data
+      # readOnly: false  # Attackers mount writable host paths
+  
+  volumes:
+  # SUSPICIOUS INDICATOR 7: Dangerous volume types
+  - name: demo-vol
+    emptyDir: {}  # Safe
+    # hostPath:
+    #   path: /etc  # DANGEROUS: Attacker mounts /etc, /var, /, /root, etc.
+    #   type: Directory
+
+---
+# OPA/Gatekeeper Policy to Block These Patterns
+# ================================================
+# This ConstraintTemplate would block the malicious patterns above:
+# 
+# apiVersion: templates.gatekeeper.sh/v1beta1
+# kind: ConstraintTemplate
+# metadata:
+#   name: k8srequiredsecuritycontext
+# spec:
+#   crd:
+#     spec:
+#       names:
+#         kind: K8sRequiredSecurityContext
+#   targets:
+#     - target: admission.k8s.gatekeeper.sh
+#       rego: |
+#         package k8srequiredsecuritycontext
+#         violation[{"msg": msg}] {
+#           input.review.object.spec.hostPID == true
+#           msg := "hostPID is not allowed"
+#         }
+#         violation[{"msg": msg}] {
+#           input.review.object.spec.containers[_].securityContext.privileged == true
+#           msg := "Privileged containers are not allowed"
+#         }

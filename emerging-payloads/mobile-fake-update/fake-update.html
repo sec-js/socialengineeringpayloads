@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+    Fake Mobile App Update Page - Educational Template
+    ====================================================
+    DISCLAIMER: Educational purposes ONLY. Do not use without authorization.
+    
+    This demonstrates how attackers create fake app update prompts on mobile
+    to trick users into installing malicious apps or revealing credentials.
+    
+    Shows characteristics security teams should train users to recognize.
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>App Update Available</title>
+    <style>
+        .edu-banner {
+            background: #dc3545;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, sans-serif;
+            background: #f0f0f0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 390px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #007AFF, #34C759);
+            padding: 40px 20px 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 18px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .app-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .version-badge {
+            background: rgba(255,255,255,0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+        
+        .content {
+            padding: 24px 20px;
+        }
+        
+        .update-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1c1c1e;
+            margin-bottom: 8px;
+        }
+        
+        .update-desc {
+            color: #636366;
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        
+        .security-warning {
+            background: #FFF3CD;
+            border-left: 4px solid #FF9500;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+        }
+        
+        .security-warning strong {
+            display: block;
+            color: #FF6B00;
+            margin-bottom: 4px;
+        }
+        
+        .security-warning p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .what-new {
+            margin-bottom: 24px;
+        }
+        
+        .what-new h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #8E8E93;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #3c3c43;
+            line-height: 1.4;
+        }
+        
+        .install-btn {
+            width: 100%;
+            padding: 16px;
+            background: #007AFF;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+        
+        .skip-btn {
+            width: 100%;
+            padding: 12px;
+            background: none;
+            color: #007AFF;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        
+        .detection-panel {
+            margin: 20px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 16px;
+        }
+        
+        .detection-panel h4 {
+            color: #dc3545;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        
+        .detection-panel ul {
+            font-size: 12px;
+            color: #555;
+            padding-left: 16px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="edu-banner">⚠️ EDUCATIONAL DEMO — Mobile Phishing Awareness Template ⚠️</div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="app-icon">🏦</div>
+            <div class="app-name">SecureBank</div>
+            <div class="version-badge">Critical Security Update v4.2.1</div>
+        </div>
+        
+        <div class="content">
+            <div class="update-title">Security Update Required</div>
+            <div class="update-desc">
+                A critical security patch is available. Your current version contains
+                a vulnerability that could expose your account. Update now to stay protected.
+            </div>
+            
+            <div class="security-warning">
+                <strong>⚠️ Action Required</strong>
+                <p>Your account may be temporarily limited until you update to the latest version.</p>
+            </div>
+            
+            <div class="what-new">
+                <h3>What's New</h3>
+                <div class="feature-item">🔒 Enhanced two-factor authentication</div>
+                <div class="feature-item">🛡️ Improved fraud detection algorithms</div>
+                <div class="feature-item">⚡ 40% faster transaction processing</div>
+                <div class="feature-item">🐛 Critical security patch (CVE-2024-XXXX)</div>
+            </div>
+            
+            <button class="install-btn" onclick="showInfo()">Update Now</button>
+            <button class="skip-btn" onclick="showInfo()">Remind Me Later</button>
+        </div>
+        
+        <div class="detection-panel">
+            <h4>🔍 Security Training: How to Recognize This Attack</h4>
+            <ul>
+                <li>URL is NOT the official bank domain</li>
+                <li>Urgency + account limitation threat = pressure tactic</li>
+                <li>Real app updates come ONLY from App Store / Google Play</li>
+                <li>Fake CVE reference to appear technical/legitimate</li>
+                <li>"Update Now" links to APK download (side-loading) on Android</li>
+                <li>On iOS: links to Enterprise certificate or TestFlight (suspicious)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        function showInfo() {
+            alert(
+                '⚠️ EDUCATIONAL DEMO\n\n' +
+                'In a real fake update attack:\n' +
+                '• "Update Now" → Downloads malicious APK (Android)\n' +
+                '• App requests excessive permissions (SMS, contacts, camera)\n' +
+                '• App overlays legitimate banking app to capture PIN\n' +
+                '• Or installs banking trojan that intercepts SMS OTP codes\n\n' +
+                '🛡️ Defense:\n' +
+                '• ONLY update apps from official App Store/Play Store\n' +
+                '• Never install APKs from websites or emails\n' +
+                '• Verify updates in the official app store independently'
+            );
+        }
+    </script>
+</body>
+</html>

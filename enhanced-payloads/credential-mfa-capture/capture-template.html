@@ -1,0 +1,147 @@
+<!-- 
+MFA Credential Capture Page Template
+=====================================
+DISCLAIMER: Educational purposes ONLY. Do not use without authorization.
+This template demonstrates the structure of an adversary-in-the-middle (AiTM)
+phishing page that captures MFA credentials.
+
+This shows how attackers create convincing MFA capture pages to educate:
+1. Security teams on what AiTM pages look like
+2. Developers on what to protect against
+3. Users on what to watch for
+
+For defensive reference only. Not for use against real users.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to your account - Educational Demo</title>
+    <style>
+        /* Educational notice banner */
+        .edu-notice {
+            background: #FF6B6B;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-family: monospace;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f3f2f1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 4px;
+            padding: 44px;
+            max-width: 440px;
+            margin: 40px auto;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0078d4;
+            margin-bottom: 20px;
+        }
+        
+        h2 { font-size: 24px; font-weight: 600; margin: 0 0 16px; }
+        
+        .mfa-prompt {
+            background: #e8f4fd;
+            border-left: 4px solid #0078d4;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #8a8886;
+            font-size: 14px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        
+        .submit-btn {
+            background: #0078d4;
+            color: white;
+            border: none;
+            padding: 8px 24px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .detection-note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 12px;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="edu-notice">
+        ⚠️ EDUCATIONAL DEMO ONLY — This is a training template for security researchers ⚠️
+    </div>
+    
+    <div class="login-container">
+        <div class="logo">⊞ Microsoft</div>
+        
+        <h2>Enter code</h2>
+        
+        <div class="mfa-prompt">
+            <strong>We sent a code to your phone</strong><br>
+            <small>Enter the 6-digit code from your authenticator app</small>
+        </div>
+        
+        <!-- In a real AiTM attack, this form would POST to the attacker's proxy server -->
+        <!-- The proxy relays the MFA code to the real server in real-time -->
+        <form id="mfaForm" action="#EDUCATIONAL-DEMO-NO-FORM-ACTION" method="POST">
+            <input type="hidden" name="username" value="[captured-in-previous-step]">
+            
+            <label for="mfaCode">Enter code</label>
+            <input type="tel" id="mfaCode" name="mfaCode" maxlength="6" 
+                   placeholder="000000" autocomplete="one-time-code" autofocus
+                   pattern="[0-9]{6}">
+            
+            <button type="button" class="submit-btn" onclick="showDetectionInfo()">
+                Sign in (DEMO)
+            </button>
+        </form>
+        
+        <div class="detection-note" id="detectionNote" style="display:none">
+            <strong>🔍 Detection Notes for Security Teams:</strong><br>
+            1. Real AiTM proxy captures the MFA token and relays to real server<br>
+            2. Session cookie obtained from real server gives persistent access<br>
+            3. Even after password reset, session cookie remains valid<br>
+            <br>
+            <strong>🛡️ Defense:</strong> Use FIDO2/hardware keys (not vulnerable to AiTM)
+        </div>
+    </div>
+    
+    <script>
+        // Educational demonstration only
+        function showDetectionInfo() {
+            document.getElementById('detectionNote').style.display = 'block';
+            alert('DEMO: In a real AiTM attack, this code would be:\n' +
+                  '1. Captured by the phishing proxy\n' +
+                  '2. Immediately relayed to the real Microsoft server\n' +
+                  '3. Session token returned and stolen\n\n' +
+                  'Defense: Use FIDO2 hardware keys which are bound to the origin domain');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "_comment": "DISCLAIMER: Educational template for security research. This shows the structure of a malicious NPM package for detection purposes.",
+  "name": "example-security-utils",
+  "version": "1.0.0",
+  "description": "EDUCATIONAL DEMO: Shows structure of malicious NPM package for supply chain attack detection",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "node preinstall.js",
+    "_note": "The preinstall script is where supply chain malware commonly executes - runs before package is installed"
+  },
+  "keywords": ["security", "utils", "tools"],
+  "author": "attacker@example.com",
+  "license": "MIT",
+  "_detection_notes": {
+    "suspicious_indicators": [
+      "preinstall/postinstall scripts in package.json",
+      "install script that makes network connections",
+      "install script that reads environment variables (looking for secrets)",
+      "install script that writes files outside package directory",
+      "Typosquatted package name (very similar to popular package)",
+      "Package author email from free email provider"
+    ],
+    "detection_methods": [
+      "npm audit - checks known vulnerabilities",
+      "Software Composition Analysis (SCA) tools",
+      "Inspect package.json scripts before installing",
+      "Private registry with package approval workflow",
+      "Pin package versions in package-lock.json with hashes"
+    ],
+    "real_world_examples": [
+      "event-stream compromise (2018) - 2M weekly downloads affected",
+      "ua-parser-js compromise (2021)",
+      "node-ipc supply chain (2022)"
+    ]
+  }
+}

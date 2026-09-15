@@ -1,0 +1,576 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-01-01",
+  "mitre_version": "14.0",
+  "description": "Structured payload-to-MITRE ATT&CK technique mapping for the Social Engineering Payloads repository",
+  "payloads": [
+    {
+      "id": "payload_001",
+      "name": "DDE CSV Payload",
+      "category": "DDE-based",
+      "file": "DDE based social engineering csv payload/Estates_ePIMS_2016.csv",
+      "description": "DDE-based payload embedded in CSV file that executes commands when opened in Excel",
+      "target_application": ["Microsoft Excel"],
+      "platform": ["Windows"],
+      "severity": "high",
+      "techniques": [
+        {
+          "mitre_id": "T1566.001",
+          "name": "Phishing: Spearphishing Attachment",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "Email attachment analysis, CSV content inspection"
+        },
+        {
+          "mitre_id": "T1204.002",
+          "name": "User Execution: Malicious File",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "User behavior monitoring"
+        },
+        {
+          "mitre_id": "T1059.003",
+          "name": "Command and Scripting Interpreter: Windows Command Shell",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "Process creation monitoring, Event ID 4688"
+        }
+      ]
+    },
+    {
+      "id": "payload_002",
+      "name": "DDE DOCX Payload",
+      "category": "DDE-based",
+      "file": "DDE based social engineering docx payload/phs398.doc",
+      "description": "DDE payload embedded in Word document that executes upon field update",
+      "target_application": ["Microsoft Word"],
+      "platform": ["Windows"],
+      "severity": "high",
+      "techniques": [
+        {
+          "mitre_id": "T1566.001",
+          "name": "Phishing: Spearphishing Attachment",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "Email attachment analysis"
+        },
+        {
+          "mitre_id": "T1204.002",
+          "name": "User Execution: Malicious File",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "User behavior, WINWORD.EXE child processes"
+        },
+        {
+          "mitre_id": "T1059.003",
+          "name": "Command and Scripting Interpreter: Windows Command Shell",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "Process creation - cmd.exe from WINWORD.EXE"
+        }
+      ]
+    },
+    {
+      "id": "payload_003",
+      "name": "DDE Outlook MSG Payload",
+      "category": "DDE-based",
+      "file": "DDE based social engineering msg (OUTLOOK) payload/FW EXTERNAL  SWIFT COPY 50000$.msg",
+      "description": "DDE payload in Outlook MSG format with financial urgency social engineering",
+      "target_application": ["Microsoft Outlook"],
+      "platform": ["Windows"],
+      "severity": "high",
+      "social_engineering_tactic": "Financial urgency - SWIFT transfer",
+      "techniques": [
+        {
+          "mitre_id": "T1566.001",
+          "name": "Phishing: Spearphishing Attachment",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "Email content analysis for financial urgency"
+        },
+        {
+          "mitre_id": "T1204.002",
+          "name": "User Execution: Malicious File",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "OUTLOOK.EXE spawning child processes"
+        },
+        {
+          "mitre_id": "T1059.003",
+          "name": "Command and Scripting Interpreter: Windows Command Shell",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "Process creation monitoring"
+        }
+      ]
+    },
+    {
+      "id": "payload_004",
+      "name": "DDE SLK Payload",
+      "category": "DDE-based",
+      "file": "DDE based social engineering slk payload/Estates_ePIMS_2016.slk",
+      "description": "DDE payload in SLK (Symbolic Link) format - often bypasses email filters",
+      "target_application": ["Microsoft Excel"],
+      "platform": ["Windows"],
+      "severity": "high",
+      "notes": "SLK format evades filters focused on common formats",
+      "techniques": [
+        {
+          "mitre_id": "T1566.001",
+          "name": "Phishing: Spearphishing Attachment",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "Unusual attachment format heuristic"
+        },
+        {
+          "mitre_id": "T1204.002",
+          "name": "User Execution: Malicious File",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "File execution monitoring"
+        },
+        {
+          "mitre_id": "T1036",
+          "name": "Masquerading",
+          "tactics": ["Defense Evasion"],
+          "subtechniques": [],
+          "detection": "File type analysis beyond extension"
+        }
+      ]
+    },
+    {
+      "id": "payload_005",
+      "name": "DDE XLS Payload",
+      "category": "DDE-based",
+      "file": "DDE based social engineering xls payload/new-osha300form1-1-04.xls",
+      "description": "DDE payload in XLS format impersonating OSHA compliance form",
+      "target_application": ["Microsoft Excel"],
+      "platform": ["Windows"],
+      "severity": "high",
+      "social_engineering_tactic": "OSHA compliance form - authority/urgency",
+      "techniques": [
+        {
+          "mitre_id": "T1566.001",
+          "name": "Phishing: Spearphishing Attachment",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "Email attachment analysis"
+        },
+        {
+          "mitre_id": "T1204.002",
+          "name": "User Execution: Malicious File",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "EXCEL.EXE child process monitoring"
+        },
+        {
+          "mitre_id": "T1059.003",
+          "name": "Command and Scripting Interpreter: Windows Command Shell",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "Process creation monitoring"
+        }
+      ]
+    },
+    {
+      "id": "payload_006",
+      "name": "Embedded Object in Office Document",
+      "category": "OLE Object Embedding",
+      "file": "Embedding Object in office document/",
+      "description": "OLE objects embedded in Office documents to execute payloads",
+      "target_application": ["Microsoft Word", "Microsoft Excel", "Microsoft PowerPoint"],
+      "platform": ["Windows"],
+      "severity": "high",
+      "techniques": [
+        {
+          "mitre_id": "T1566.001",
+          "name": "Phishing: Spearphishing Attachment",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "OLE analysis in email attachments"
+        },
+        {
+          "mitre_id": "T1204.002",
+          "name": "User Execution: Malicious File",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "OLE object execution monitoring"
+        },
+        {
+          "mitre_id": "T1055",
+          "name": "Process Injection",
+          "tactics": ["Defense Evasion", "Privilege Escalation"],
+          "subtechniques": [],
+          "detection": "Memory scanning, process behavior"
+        }
+      ]
+    },
+    {
+      "id": "payload_007",
+      "name": "PowerShell on Mouseover (PowerPoint)",
+      "category": "Mouse Event Execution",
+      "file": "Execute powershell on mouseover - Powerpoint (pps)/",
+      "description": "PowerPoint presentation that executes PowerShell on mouse hover event",
+      "target_application": ["Microsoft PowerPoint"],
+      "platform": ["Windows"],
+      "severity": "high",
+      "techniques": [
+        {
+          "mitre_id": "T1566.001",
+          "name": "Phishing: Spearphishing Attachment",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "Email attachment analysis for PPS files"
+        },
+        {
+          "mitre_id": "T1204.002",
+          "name": "User Execution: Malicious File",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "POWERPNT.EXE spawning PowerShell"
+        },
+        {
+          "mitre_id": "T1059.001",
+          "name": "Command and Scripting Interpreter: PowerShell",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "PowerShell script block logging, Event ID 4104"
+        }
+      ]
+    },
+    {
+      "id": "payload_008",
+      "name": "Fake Attachment Scam",
+      "category": "Social Engineering",
+      "file": "Fake attachment scam/FW Confidential.msg",
+      "description": "Email with fake attachment to capture attention and deliver malicious content",
+      "target_application": ["Email Client"],
+      "platform": ["Windows", "macOS", "Linux"],
+      "severity": "medium",
+      "social_engineering_tactic": "Curiosity/authority - 'Confidential' label",
+      "techniques": [
+        {
+          "mitre_id": "T1566.001",
+          "name": "Phishing: Spearphishing Attachment",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "Email content analysis, sender reputation"
+        },
+        {
+          "mitre_id": "T1204.002",
+          "name": "User Execution: Malicious File",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "User behavior monitoring"
+        },
+        {
+          "mitre_id": "T1036",
+          "name": "Masquerading",
+          "tactics": ["Defense Evasion"],
+          "subtechniques": [],
+          "detection": "File type verification"
+        }
+      ]
+    },
+    {
+      "id": "payload_009",
+      "name": "Link Manipulation Attack",
+      "category": "Link Manipulation",
+      "file": "Link manipulation attack/linkmanipulation/",
+      "description": "Web-based attack that manipulates links to redirect users to malicious pages",
+      "target_application": ["Web Browser"],
+      "platform": ["Windows", "macOS", "Linux"],
+      "severity": "high",
+      "techniques": [
+        {
+          "mitre_id": "T1566.002",
+          "name": "Phishing: Spearphishing Link",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "URL analysis, domain reputation"
+        },
+        {
+          "mitre_id": "T1204.001",
+          "name": "User Execution: Malicious Link",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "Browser-based monitoring"
+        },
+        {
+          "mitre_id": "T1036",
+          "name": "Masquerading",
+          "tactics": ["Defense Evasion"],
+          "subtechniques": [],
+          "detection": "Domain lookalike detection"
+        }
+      ]
+    },
+    {
+      "id": "payload_010",
+      "name": "PDF with Malicious URL",
+      "category": "PDF-based",
+      "file": "PDF with malicious URL/50000usd.pdf",
+      "description": "PDF document containing malicious URL with financial lure",
+      "target_application": ["PDF Reader", "Adobe Reader"],
+      "platform": ["Windows", "macOS", "Linux"],
+      "severity": "high",
+      "social_engineering_tactic": "Financial lure - $50,000",
+      "techniques": [
+        {
+          "mitre_id": "T1566.001",
+          "name": "Phishing: Spearphishing Attachment",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "PDF content analysis"
+        },
+        {
+          "mitre_id": "T1566.002",
+          "name": "Phishing: Spearphishing Link",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "URL reputation analysis"
+        },
+        {
+          "mitre_id": "T1204.002",
+          "name": "User Execution: Malicious File",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "PDF execution monitoring"
+        }
+      ]
+    },
+    {
+      "id": "payload_011",
+      "name": "Password Protected Document",
+      "category": "Evasion / Delivery",
+      "file": "Password protected document/",
+      "description": "Password-protected documents to bypass email scanning, with SWIFT transaction lure",
+      "target_application": ["Microsoft Word", "Email Client"],
+      "platform": ["Windows"],
+      "severity": "high",
+      "evasion_technique": "Password protection prevents automated content scanning",
+      "techniques": [
+        {
+          "mitre_id": "T1566.001",
+          "name": "Phishing: Spearphishing Attachment",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "Password-protected attachment heuristics"
+        },
+        {
+          "mitre_id": "T1027",
+          "name": "Obfuscated Files or Information",
+          "tactics": ["Defense Evasion"],
+          "subtechniques": [],
+          "detection": "Behavioral analysis post-password entry"
+        },
+        {
+          "mitre_id": "T1204.002",
+          "name": "User Execution: Malicious File",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "Post-decryption monitoring"
+        }
+      ]
+    },
+    {
+      "id": "payload_012",
+      "name": "Steal Credentials via Fake Excel",
+      "category": "Credential Harvesting",
+      "file": "Steal credentials using fake excel doc/excel/",
+      "description": "Fake Microsoft login page styled as Excel credential prompt",
+      "target_application": ["Web Browser"],
+      "platform": ["Windows", "macOS", "Linux"],
+      "severity": "high",
+      "techniques": [
+        {
+          "mitre_id": "T1056.003",
+          "name": "Input Capture: Web Portal Capture",
+          "tactics": ["Collection"],
+          "subtechniques": [],
+          "detection": "Form submission monitoring, URL analysis"
+        },
+        {
+          "mitre_id": "T1539",
+          "name": "Steal Web Session Cookie",
+          "tactics": ["Collection"],
+          "subtechniques": [],
+          "detection": "Session cookie monitoring"
+        },
+        {
+          "mitre_id": "T1078",
+          "name": "Valid Accounts",
+          "tactics": ["Defense Evasion", "Persistence", "Privilege Escalation", "Initial Access"],
+          "subtechniques": [],
+          "detection": "Anomalous login detection (UEBA)"
+        }
+      ]
+    },
+    {
+      "id": "payload_013",
+      "name": "Steal Credentials via Basic Auth (Word)",
+      "category": "Credential Harvesting",
+      "file": "Steal credential using a word document which pop for basic authentication/Protected_document.docx",
+      "description": "Word document that triggers Windows basic authentication dialog for NTLM hash capture",
+      "target_application": ["Microsoft Word"],
+      "platform": ["Windows"],
+      "severity": "high",
+      "techniques": [
+        {
+          "mitre_id": "T1187",
+          "name": "Forced Authentication",
+          "tactics": ["Collection"],
+          "subtechniques": [],
+          "detection": "Outbound SMB connection monitoring"
+        },
+        {
+          "mitre_id": "T1056.003",
+          "name": "Input Capture: Web Portal Capture",
+          "tactics": ["Collection"],
+          "subtechniques": [],
+          "detection": "Network traffic analysis"
+        },
+        {
+          "mitre_id": "T1078",
+          "name": "Valid Accounts",
+          "tactics": ["Defense Evasion"],
+          "subtechniques": [],
+          "detection": "NTLM authentication monitoring"
+        }
+      ]
+    },
+    {
+      "id": "payload_014",
+      "name": "Tabnabbing Attack",
+      "category": "Browser-based",
+      "file": "Tabnabbing attack/incident/",
+      "description": "Browser tab replacement attack that substitutes phishing content when user switches tabs",
+      "target_application": ["Web Browser"],
+      "platform": ["Windows", "macOS", "Linux"],
+      "severity": "high",
+      "techniques": [
+        {
+          "mitre_id": "T1566.002",
+          "name": "Phishing: Spearphishing Link",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "URL reputation, page content analysis"
+        },
+        {
+          "mitre_id": "T1185",
+          "name": "Browser Session Hijacking",
+          "tactics": ["Collection"],
+          "subtechniques": [],
+          "detection": "Browser telemetry, JavaScript monitoring"
+        },
+        {
+          "mitre_id": "T1056.003",
+          "name": "Input Capture: Web Portal Capture",
+          "tactics": ["Collection"],
+          "subtechniques": [],
+          "detection": "Form submission monitoring"
+        }
+      ]
+    },
+    {
+      "id": "payload_015",
+      "name": "LNK Download and Execute HTA",
+      "category": "Shortcut-based",
+      "file": "lnk - download and execute calc HTA/Employee Survey.lnk",
+      "description": "Windows shortcut (.lnk) file that downloads and executes HTA payload",
+      "target_application": ["Windows Explorer", "File Manager"],
+      "platform": ["Windows"],
+      "severity": "high",
+      "social_engineering_tactic": "Employee survey - corporate context",
+      "techniques": [
+        {
+          "mitre_id": "T1566.001",
+          "name": "Phishing: Spearphishing Attachment",
+          "tactics": ["Initial Access"],
+          "subtechniques": [],
+          "detection": "LNK file analysis in email"
+        },
+        {
+          "mitre_id": "T1204.002",
+          "name": "User Execution: Malicious File",
+          "tactics": ["Execution"],
+          "subtechniques": [],
+          "detection": "LNK execution monitoring"
+        },
+        {
+          "mitre_id": "T1218.005",
+          "name": "System Binary Proxy Execution: Mshta",
+          "tactics": ["Defense Evasion"],
+          "subtechniques": [],
+          "detection": "mshta.exe execution monitoring"
+        },
+        {
+          "mitre_id": "T1105",
+          "name": "Ingress Tool Transfer",
+          "tactics": ["Command and Control"],
+          "subtechniques": [],
+          "detection": "Network connection from mshta.exe"
+        }
+      ]
+    }
+  ],
+  "attack_chains": [
+    {
+      "id": "chain_001",
+      "name": "Initial Access → Credential Theft → Persistence",
+      "description": "Multi-stage chain from DDE execution to credential theft to persistence",
+      "payloads": ["payload_001", "payload_012"],
+      "technique_sequence": ["T1566.001", "T1204.002", "T1059.003", "T1056.003", "T1078", "T1053.005"]
+    },
+    {
+      "id": "chain_002",
+      "name": "Email Phishing Multi-Format Fallback",
+      "description": "Multiple attachment formats as fallback delivery mechanisms",
+      "payloads": ["payload_001", "payload_002", "payload_004", "payload_005", "payload_009"],
+      "technique_sequence": ["T1566.001", "T1566.002", "T1204.002", "T1056.003"]
+    },
+    {
+      "id": "chain_003",
+      "name": "PDF → Web Exploitation → C2",
+      "description": "PDF delivers URL to web exploitation landing page with C2 setup",
+      "payloads": ["payload_010"],
+      "technique_sequence": ["T1566.001", "T1189", "T1203", "T1105", "T1071"]
+    },
+    {
+      "id": "chain_004",
+      "name": "Office Macro Cascade",
+      "description": "Layered macro execution with password-protected delivery",
+      "payloads": ["payload_011"],
+      "technique_sequence": ["T1566.001", "T1027", "T1059.005", "T1105", "T1547"]
+    },
+    {
+      "id": "chain_005",
+      "name": "Credential Harvesting → Impersonation → Lateral Movement",
+      "description": "Credential theft chain leading to internal impersonation and lateral movement",
+      "payloads": ["payload_012", "payload_013", "payload_014"],
+      "technique_sequence": ["T1598", "T1056.003", "T1185", "T1078", "T1550", "T1534"]
+    }
+  ],
+  "statistics": {
+    "total_payloads": 15,
+    "categories": {
+      "DDE-based": 5,
+      "Credential Harvesting": 2,
+      "Browser-based": 2,
+      "Social Engineering": 1,
+      "Shortcut-based": 1,
+      "PDF-based": 1,
+      "OLE Object Embedding": 1,
+      "Mouse Event Execution": 1,
+      "Evasion / Delivery": 1
+    },
+    "tactics_covered": {
+      "Initial Access": 12,
+      "Execution": 10,
+      "Defense Evasion": 8,
+      "Collection": 6,
+      "Command and Control": 2,
+      "Persistence": 2
+    }
+  }
+}
